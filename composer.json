@@ -1,0 +1,19 @@
+{
+    "name": "52812/app-salon_php_mvc_js_sass",
+    "description": "hola",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "MVC\\" : "./",
+            "Controllers\\" : "./controllers",
+            "Model\\" : "./models"
+        }
+    },
+    "authors": [
+        {
+            "name": "Kevin Nanez",
+            "email": "kevinn2304@gmail.com"
+        }
+    ],
+    "require": {}
+}
