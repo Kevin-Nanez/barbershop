@@ -18,7 +18,7 @@ token VARCHAR(15)
 
 INSERT INTO usuario(nombre,apellido,email,phone,user_password,admim,confirmado)
 VALUES
-("Kevin","Nañez","kevinn2304@gmail.com","8126944690","$2y$10$oFmKWUcnPRjXeIxe1ubmHOjzHy51od.KD0i6Z8.fXHozNUEs6Nzuu",1,1),
+("Kevin","Nañez","kevinn230@gmail.com","8126944690","$2y$10$oFmKWUcnPRjXeIxe1ubmHOjzHy51od.KD0i6Z8.fXHozNUEs6Nzuu",1,1),
 ("dulio","Nañez","dulio2304@gmail.com","8126944691","$2y$10$ru7B31B2uJS8ziHjpHCLDOkKNMqwedN.7l2jEn6AqnLS/KOoRL9Vi",0,1),
 ("jose","Nañez","jose2304@gmail.com","8126944692","$2y$10$qzMHg84WCGszdWWJU5myLe1erna9SwuPQCRxq5bC8am6JUXAULEJK",0,1);
 
@@ -54,5 +54,5 @@ precio DECIMAL(5,2)
  FOREIGN KEY(servicio_id) REFERENCES servicio(id) ON DELETE SET NULL
  );
  
- 
+ select * from usuario;
  

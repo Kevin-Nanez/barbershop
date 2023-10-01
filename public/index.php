@@ -16,6 +16,8 @@ $router->get("/recuperar",[LoginController::class,"recuperar"]);
 $router->post("/recuperar",[LoginController::class,"recuperar"]);
 $router->get("/registro",[LoginController::class,"registro"]);
 $router->post("/registro",[LoginController::class,"registro"]);
+$router->get("/confirmar",[LoginController::class,"confirmar"]);
+$router->get("/mensaje",[LoginController::class,"mensaje"]);
 
 // Comprueba y valida las rutas, que existan y les asigna las funciones del Controlador
 $router->comprobarRutas();
