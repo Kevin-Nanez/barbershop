@@ -51,6 +51,35 @@ class email{
 
     }
 
+    public function emailResetPassword(){
+        $mail = new PHPMailer();
+        $mail->isSMTP();
+        $mail->Host = 'sandbox.smtp.mailtrap.io';
+        $mail->SMTPAuth = true;
+        $mail->Port = 2525;
+        $mail->Username = '639e5593b0d2c9';
+        $mail->Password = '4e0645e2087c89';
+        
+        $mail->SMTPSecure = "tls";
+        // quien envia el emali
+        $mail->setFrom('tigresdecorason2304ipd@gmail.com');
+        // donde se recibe el email
+        $mail->addAddress($this->email,'AnuelAA.com');
+        $mail->Subject = "Reestablece tu contraseña";
+
+        $mail->isHTML(TRUE);
+        $mail->CharSet = 'UTF-8';
+
+        $contenido = "<html>";
+        $contenido .="<p><strong>Hola ".$this->nombre ." </strong> Has solicitado un cambio de contraseña:</p> <br>";
+        $contenido .= "<p>Reestablecer contraseña: <a href='http://localhost:3000/recuperar?token=".$this->token."'>Click Aquí</a></p>";
+        $contenido.= "Si tu no solicitaste esta cuenta, ignora el mensaje";
+        $contenido .= "</html>";
+
+        $mail->Body = $contenido;
+        $mail->send();
+    }
+
 }
 
 

@@ -16,7 +16,7 @@ class usuario extends ActiveRecord
     public $phone = '';
     public $user_password = '';
     public $confirm_password = '';
-    public $admin = null;
+    public $administrador = null;
     public $confirmado = null;
     public $token = '';
 
@@ -29,7 +29,7 @@ class usuario extends ActiveRecord
         $this->phone = $args['phone'] ?? '';
         $this->user_password = $args['user_password'] ?? '';
         $this->confirm_password = $args['confirm_password'] ?? '';
-        $this->admin = $args['admin'] ?? 0;
+        $this->administrador = $args['admin'] ?? 0;
         $this->confirmado = $args['confirmado'] ?? 0;
         $this->token = $args['token'] ?? '';
     }
@@ -40,37 +40,56 @@ class usuario extends ActiveRecord
     {
         if (!$this->nombre) {
             self::$alertas['error'][] = "El campo Nombre es obligatorio";
+        } elseif(strlen($this->nombre)>64){
+            self::$alertas['error'][] = "El Nombre es demasiado largo";
         }
+
+
         if (!$this->apellido) {
             self::$alertas['error'][] = "El campo Apellido es obligatorio";
+        }elseif(strlen($this->nombre)>64){
+            self::$alertas['error'][] = "El apellido es demasiado largo";
         }
+
         if (!empty($this->email)) {
             // Expresión regular para validar un correo electrónico
-            $regex = '/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/';
-
-            if (preg_match($regex, $this->email)) {
-                // El correo electrónico es válido
-            } else {
+            $regex = '/^[A-Za-z0-9._%+-]{1,64}@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/';
+            if (!preg_match($regex, $this->email)) {
                 self::$alertas['error'][] = "El formato del correo electrónico no es válido";
             }
         } else {
             self::$alertas['error'][] = "El campo Email es obligatorio";
         }
+
+
+
         if (!$this->phone) {
             self::$alertas['error'][] = "El campo Telefono es obligatorio";
-        }
-        if (!$this->user_password) {
-            self::$alertas['error'][] = "El campo Password es obligatorio";
-        } else if (strlen($this->user_password) < 8) {
-            self::$alertas['error'][] = "La contraseña debe tener 8 caracteres como minimo";
+        } elseif (!preg_match("/^[0-9]+$/", $this->phone)) {
+            self::$alertas['error'][] = "El campo Teléfono solo debe contener números";
+        }elseif(strlen($this->phone)>11 ||strlen($this->phone)<9){
+            self::$alertas['error'][] = "Fromato de telefono invalido";   
         }
 
-        if (!$this->confirm_password) {
-            self::$alertas['error'][] = "El campo Confirm Password es obligatorio";
+        if (strlen($this->user_password)>=8 ){
+            if (!$this->user_password) {
+                self::$alertas['error'][] = "El campo Password es obligatorio";
+            } else if (strlen($this->user_password) < 8) {
+                self::$alertas['error'][] = "La contraseña debe tener 8 caracteres como minimo";
+            }
+    
+            if (!$this->confirm_password) {
+                self::$alertas['error'][] = "El campo Confirm Password es obligatorio";
+            }
+            if (($this->user_password && $this->confirm_password) && ($this->user_password !== $this->confirm_password)) {
+                self::$alertas['error'][] = "Las contraseñas no coinciden";
+            }
+        } else{
+            self::$alertas['error'][] = "Las contraseña debe tener 8 caracteres como minimo";
         }
-        if (($this->user_password && $this->confirm_password) && ($this->user_password !== $this->confirm_password)) {
-            self::$alertas['error'][] = "Las contraseñas no coinciden";
-        }
+
+
+ 
         return self::$alertas;
     }
 
@@ -129,4 +148,63 @@ class usuario extends ActiveRecord
         $this->token = uniqid();
 
     }
+
+    public function primeraMayuscula(){
+        $this->nombre = ucfirst($this->nombre) ;
+        $this->apellido = ucfirst($this->apellido);
+    }
+
+    public function validarLogin(){
+        if (!$this->email) {
+            self::$alertas['error'][] = "El campo Email es obligatorio";
+        }
+        if (!$this->user_password) {
+            self::$alertas['error'][] = "El campo Password es obligatorio";
+        }
+        return self::$alertas;
+    }
+
+    public function validarPassword($passwordLoguin)
+    {        
+        if(password_verify($passwordLoguin, $this->user_password)){
+            
+            if($this->confirmado != 1){
+                self::$alertas['error'][] = "Revise su bandeja de entrada para confirmar el correo";
+            }
+
+        } else{
+            self::$alertas['error'][] = "Contraseña Incorrecta";
+        }
+
+        return self::$alertas;
+    }
+
+    public function validarEmail(){
+        if (!$this->email) {
+            self::$alertas['error'][] = "El campo Email es obligatorio";
+        }
+        return self::$alertas;
+    }
+
+    public function ValidarCambioPassword($user_password,$confirm_password ){
+        if (strlen($user_password)>=8 ){
+            if (!$user_password) {
+                self::$alertas['error'][] = "El campo Password es obligatorio";
+            }
+            if (!$confirm_password) {
+                self::$alertas['error'][] = "El campo Confirm Password es obligatorio";
+            }
+            if (($user_password && $confirm_password) && ($user_password !== $confirm_password)) {
+                self::$alertas['error'][] = "Las contraseñas no coinciden";
+            }
+        } else{
+            self::$alertas['error'][] = "Las contraseña debe tener 8 caracteres como minimo";
+        }
+
+        return self::$alertas;
+    }
+
+    
+
+
 }

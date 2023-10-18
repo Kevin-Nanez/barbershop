@@ -5,10 +5,10 @@
 include_once __DIR__ . "/../templates/alertas.php";
 ?>
 
-<form class="formulario" method="post" action="/registro">
+<form class="formulario" method="POST" action="/registro">
     <div class="campo">
             <label for="nombre">Nombre</label>
-            <input type="text" id="nombre" placeholder="Tu nombre" name="nombre" value="<?php 
+            <input type="text" id="nombre" placeholder="Tu nombre" name="nombre" value="<?php
             echo s($usuario->nombre);
             ?>" />
     </div>

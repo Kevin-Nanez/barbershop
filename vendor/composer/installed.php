@@ -3,7 +3,7 @@
         'name' => '52812/app-salon_php_mvc_js_sass',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '58f58e14b1e4c207506b2a430f9965dc613cab7c',
+        'reference' => 'dc1c59b26048781382e6cfb6dcd187ac950274ca',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         '52812/app-salon_php_mvc_js_sass' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '58f58e14b1e4c207506b2a430f9965dc613cab7c',
+            'reference' => 'dc1c59b26048781382e6cfb6dcd187ac950274ca',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

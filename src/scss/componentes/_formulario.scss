@@ -4,6 +4,7 @@
 .formulario{
     margin-top: 2rem;
     width: 100%;
+
 }
 
 .campo{
@@ -20,6 +21,12 @@
         border: none;
         padding: calc(v.$separacion /4);
         border-radius: 1rem;
+
+        &:disabled{
+            background-color: lighten(v.$negro, 30%);
+            color: v.$blanco;
+            font-weight: v.$semibold;
+        }
     }
 
 }
